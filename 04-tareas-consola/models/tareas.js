@@ -18,6 +18,14 @@ class Tareas {
         this._listado = {};
     }
 
+    cargarTareasFromArray (tareas =  []) {
+        tareas.forEach( tarea => {
+            console.log(`${tarea}`.bgRed)
+            console.log(`${tarea.id}:${tarea.desc} `.bgMagenta)
+            this._listado[tarea.id] = tarea;
+        })
+    }
+
     crearTarea (descripcion = '') {
         const tarea = new Tarea(descripcion);
         this._listado[tarea.id] = tarea;
