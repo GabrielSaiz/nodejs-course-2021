@@ -11,8 +11,7 @@ class Tarea {
 
         this.id = uuidv4();
         this.desc = desc;
-        this.creadaEn = Date.now();
-
+        this.creadaEn = new Date().toISOString;
     }
 
 }

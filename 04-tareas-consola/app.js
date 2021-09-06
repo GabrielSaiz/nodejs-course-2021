@@ -6,7 +6,8 @@ const {
     inquirerPausa, 
     inquirerLeerInput,
     inquirerListadoTareas,
-    inquirerLeerConfirmacion
+    inquirerLeerConfirmacion,
+    inquirerCheckboxesTareas
 } = require('./helpers/inquirer');
 const Tarea = require('./models/tarea');
 const Tareas = require('./models/tareas');
@@ -51,20 +52,30 @@ const main = async() => {
             break;
             case '5':
                 //   5. Completar tarea(s)  
-            break;
-            case '6':
-                //   6. Borrar tarea  
-                const id = await inquirerListadoTareas('¿Qué tarea desea borrar?', tareas.listadoArr);
+                const ids = await inquirerCheckboxesTareas('Seleccione las tareas que desea completar:', tareas.listadoArr);
+                
+                if (ids !== undefined) {
+                    const ok = await inquirerLeerConfirmacion('¿Está seguro que desea completarla/s?');
 
-                if (id !== '0') {
-                    const ok = await inquirerLeerConfirmacion('¿Está seguro que desea borrarlo?');
-                    
-                    if (ok) {                    
-                        tareas.borrarTarea(id);
+                    if (ok) {   
+                        // tareas.borrarTarea(ids);
+                        tareas.completarTareas(ids);
 
                         guardarDB (tareas.listadoArr)                    
                     }
                 }
+            break;
+            case '6':
+                //   6. Borrar tarea  
+                const id = await inquirerListadoTareas('¿Qué tarea desea borrar?', tareas.listadoArr);
+                const ok = await inquirerLeerConfirmacion('¿Está seguro que desea borrarlo?');
+                
+                if (ok) {                    
+                    tareas.borrarTarea(id);
+
+                    guardarDB (tareas.listadoArr)                    
+                }
+                
             break;
 
         }

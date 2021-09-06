@@ -131,11 +131,40 @@ const inquirerListadoTareas = async(message, tareas = []) => {
     
 }
 
+const inquirerCheckboxesTareas = async(message, tareas = []) => {
+
+    const choices = tareas.map( (tarea, i) => {
+
+        const idx = `${i + 1}.`.green;
+        return {
+            value: tarea.id,
+            name: `${idx} ${tarea.desc}`,
+            checked: tarea.completadoEn ? true : false
+
+        };
+    });
+
+    const pregunta = {
+        type: 'checkbox',
+        name: 'tareasSelected',
+        message,
+        choices
+    }
+
+    // console.clear();
+    const {tareasSelected} = await inquirer.prompt(pregunta);
+
+    return tareasSelected;
+
+    
+}
+
 
 module.exports = {
     inquirerMenu,
     inquirerPausa,
     inquirerLeerInput,
     inquirerListadoTareas,
-    inquirerLeerConfirmacion
+    inquirerLeerConfirmacion,
+    inquirerCheckboxesTareas
 }
