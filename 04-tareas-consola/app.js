@@ -4,7 +4,9 @@ const { guardarDB, leerDB } = require('./helpers/database');
 const { 
     inquirerMenu, 
     inquirerPausa, 
-    inquirerLeerInput 
+    inquirerLeerInput,
+    inquirerListadoTareas,
+    inquirerLeerConfirmacion
 } = require('./helpers/inquirer');
 const Tarea = require('./models/tarea');
 const Tareas = require('./models/tareas');
@@ -52,6 +54,17 @@ const main = async() => {
             break;
             case '6':
                 //   6. Borrar tarea  
+                const id = await inquirerListadoTareas('¿Qué tarea desea borrar?', tareas.listadoArr);
+
+                if (id !== '0') {
+                    const ok = await inquirerLeerConfirmacion('¿Está seguro que desea borrarlo?');
+                    
+                    if (ok) {                    
+                        tareas.borrarTarea(id);
+
+                        guardarDB (tareas.listadoArr)                    
+                    }
+                }
             break;
 
         }
