@@ -1,6 +1,6 @@
 require('colors');
 
-const { guardarDB } = require('./helpers/database');
+const { guardarDB, leerDB } = require('./helpers/database');
 const { 
     inquirerMenu, 
     inquirerPausa, 
@@ -15,6 +15,13 @@ console.clear();
 const main = async() => {
     
     const tareas = new Tareas();
+    const tareasDB = leerDB();
+
+    if (tareasDB) {
+        //
+    }
+
+    await inquirerPausa();
 
     let opt = ''
     do {
