@@ -41,6 +41,21 @@ class Tareas {
         })
     }
 
+    listadoPendienteCompletadas(completado = true) {
+        console.log(' ');
+        let index = 1;
+        this.listadoArr.forEach( (tarea) => {
+            const {desc, completadoEn} = tarea;
+
+            if (completado && completadoEn !== null) {
+                console.log(`${colors.green(index++)}. ${desc} :: ${'Completada'.green}`);
+            } else if (!completado && completadoEn === null) {
+                console.log(`${colors.green(index++)}. ${desc} :: ${'Pendiente'.red}`);
+            }
+            
+        })
+    }
+
 }
 
 
