@@ -9,31 +9,31 @@ const menuOpts = [
         choices: [
             {
                 value: '1',
-                name: `${'1.'.green} Crear tarea `
+                name: `${'1.'.green.bold} Crear tarea `
             },
             {
                 value: '2',
-                name: `${'2.'.green} Listar tareas `
+                name: `${'2.'.green.bold} Listar tareas `
             },
             {
                 value: '3',
-                name: `${'3.'.green} Listar tareas completadas `
+                name: `${'3.'.green.bold} Listar tareas completadas `
             },
             {
                 value: '4',
-                name: `${'4.'.green} Listar tareas pendientes `
+                name: `${'4.'.green.bold} Listar tareas pendientes `
             },
             {
                 value: '5',
-                name: `${'5.'.green} Completar tarea(s) `
+                name: `${'5.'.green.bold} Completar tarea(s) `
             },
             {
                 value: '6',
-                name: `${'6.'.green} Borrar tarea `
+                name: `${'6.'.green.bold} Borrar tarea `
             },
             {
                 value: '0',
-                name: `${'0.'.green} Salir `
+                name: `${'0.'.green} Salir `.bold
             },
             ]
 
@@ -45,7 +45,7 @@ const inquirerMenu = async() => {
     
     console.clear();
     console.log('=============================='.green);
-    console.log('   Selecciona una opción: '.green);
+    console.log('   Selecciona una opción: '.white.bold);
     console.log('=============================='.green);
     console.log(` `);
 
