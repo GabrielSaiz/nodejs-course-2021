@@ -1,5 +1,6 @@
 require('colors');
 
+const { guardarDB } = require('./helpers/database');
 const { 
     inquirerMenu, 
     inquirerPausa, 
@@ -26,6 +27,8 @@ const main = async() => {
                 const tarea = new Tarea(desc);        
                 tareas._listado[tarea.id] = tarea;
                 console.log(tarea);
+
+                guardarDB (tareas.listadoArr)
             break;
             case '2':
                 //   2. Listar tareas  

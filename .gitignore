@@ -2,4 +2,5 @@
 */package-lock.json
 
 
-03-bases-node/salida/table-13.txt
+03-bases-node/salida/*
+04-tareas-consola/db/*
