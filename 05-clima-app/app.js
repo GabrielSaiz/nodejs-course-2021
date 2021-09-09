@@ -19,6 +19,8 @@ const main = async () => {
         // Mostrar Mensaje
         const lugar = await inquirerLeerInput('Lugar: ');
         console.log(lugar);
+        busquedas.ciudad(lugar);
+
         // Buscar los lugares
         // Seleccionar el lugar
         // Obtener clima
