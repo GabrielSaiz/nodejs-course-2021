@@ -1,0 +1,16 @@
+{
+  "name": "05-clima-app",
+  "version": "1.0.0",
+  "description": "Udemy - Sección 6: Aplicación de Clima - GeoLocation + OpenWeatherMaps",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "inquirer": "^8.1.2"
+  }
+}
