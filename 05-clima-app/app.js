@@ -1,3 +1,4 @@
+require('dotenv').config();
 const {
   inquirerMenu,
   inquirerPausa,
@@ -6,9 +7,11 @@ const {
 const Busquedas = require('./models/busquedas');
 
 console.log('APP CLIMA STARTING');
+console.log(process.env);
 
 // console.clear();
 const main = async () => {
+  await inquirerPausa();
   const busquedas = new Busquedas();
   let opt = '';
   do {
