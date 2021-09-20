@@ -78,12 +78,12 @@ const inquirerLeerConfirmacion = async (message) => {
   return ok;
 };
 
-const inquirerListadoTareas = async (message, tareas = []) => {
-  const choices = tareas.map((tarea, i) => {
+const inquirerListadoLugares = async (message, lugares = []) => {
+  const choices = lugares.map((lugar, i) => {
     const idx = `${i + 1}.`.green;
     return {
-      value: tarea.id,
-      name: `${idx} ${tarea.desc}`
+      value: lugar.id,
+      name: `${idx} ${lugar.nombre}`
     };
   });
   choices.unshift({
@@ -93,15 +93,15 @@ const inquirerListadoTareas = async (message, tareas = []) => {
 
   const preguntas = {
     type: 'list',
-    name: 'tareaSelected',
+    name: 'lugarSelected',
     message,
     choices
   };
 
-  console.clear();
-  const { tareaSelected } = await inquirer.prompt(preguntas);
+  // console.clear();
+  const { lugarSelected } = await inquirer.prompt(preguntas);
 
-  return tareaSelected;
+  return lugarSelected;
 };
 
 const inquirerCheckboxesTareas = async (message, tareas = []) => {
@@ -131,7 +131,7 @@ module.exports = {
   inquirerMenu,
   inquirerPausa,
   inquirerLeerInput,
-  inquirerListadoTareas,
+  inquirerListadoLugares,
   inquirerLeerConfirmacion,
   inquirerCheckboxesTareas
 };

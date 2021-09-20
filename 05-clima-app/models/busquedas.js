@@ -9,8 +9,7 @@ class Busquedas {
 
   get paramsMapbox() {
     return {
-      access_token:
-        'pk.eyJ1IjoiZ2FicmllbHNhaXoiLCJhIjoiY2t0ZGZkcjltMDFwcjJxcW55cnFoNGx5ayJ9.MVc0YBsxS_duJUk_LARkFQ',
+      access_token: process.env.MAPBOX_TOKEN,
       autocomplete: true,
       limit: 5,
       language: 'es'
@@ -25,9 +24,13 @@ class Busquedas {
     });
 
     const resp = await axiosInstance.get();
-    console.log(resp.data);
-
-    return []; //devuelve las ciudades
+    //console.log(resp.data.features);
+    return resp.data.features.map((lugar) => ({
+      id: lugar.id,
+      nombre: lugar.place_name,
+      lng: lugar.center[0],
+      lat: lugar.center[1]
+    }));
   }
 }
 
