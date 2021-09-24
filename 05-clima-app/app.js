@@ -32,6 +32,11 @@ const main = async () => {
 
         const lugarSeleccionado = lugares.find((l) => l.id === lugarSelectedId);
         // console.log(lugarSeleccionado);
+        const climaLugarSeleccionado = await busquedas.clima(
+          lugarSeleccionado.lat,
+          lugarSeleccionado.lng
+        );
+        // console.log(climaLugarSeleccionado);
 
         // Buscar los lugares
         // Seleccionar el lugar
@@ -39,13 +44,21 @@ const main = async () => {
         // Mostrar resultados
         console.log('\nInformacion de la ciudad\n'.green);
         console.log(
-          `\t${'Ciudad:'.bold} ${lugarSeleccionado.nombre}`.black.bgYellow
+          `\t${'Ciudad:'.bold} ${lugarSeleccionado.nombre}`.underline
         );
         console.log(`\t${'Latitud:'.bold} ${lugarSeleccionado.lat}`);
         console.log(`\t${'Longitud:'.bold} ${lugarSeleccionado.lng}`);
         console.log(`\t${'Temperatura:'.bold}`);
-        console.log(`\t${'\t- Mínima:'.bold}`);
-        console.log(`\t${'\t- Máxima:'.bold}`);
+        console.log(
+          `\t${'\t- Actual:'.bold} ${climaLugarSeleccionado.temp}`.green
+        );
+        console.log(
+          `\t${'\t- Mínima:'.bold} ${climaLugarSeleccionado.min}`.cyan
+        );
+        console.log(
+          `\t${'\t- Máxima:'.bold} ${climaLugarSeleccionado.max}`.red
+        );
+        console.log(`\t${'Tiempo:'.bold} ${climaLugarSeleccionado.desc}`);
         break;
       case '2':
         break;
