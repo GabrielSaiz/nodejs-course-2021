@@ -30,7 +30,14 @@ const main = async () => {
         );
         // console.log(lugarSelectedId);
 
+        if (lugarSelectedId === '0') {
+          continue;
+        }
+
         const lugarSeleccionado = lugares.find((l) => l.id === lugarSelectedId);
+
+        busquedas.agregarHistorial(lugarSeleccionado.nombre);
+
         // console.log(lugarSeleccionado);
         const climaLugarSeleccionado = await busquedas.clima(
           lugarSeleccionado.lat,
@@ -61,6 +68,10 @@ const main = async () => {
         console.log(`\t${'Tiempo:'.bold} ${climaLugarSeleccionado.desc}`);
         break;
       case '2':
+        busquedas.historial.forEach((lugar, i) => {
+          const idx = `${i + 1}.`.green;
+          console.log(`${idx} ${lugar}`);
+        });
         break;
     }
 

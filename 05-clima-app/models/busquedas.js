@@ -1,7 +1,8 @@
 const axios = require('axios');
+const { guardarDB, leerDB } = require('../helpers/database');
 
 class Busquedas {
-  historial = ['Tegucigalpa', 'Madrid', 'San José'];
+  historial = leerDB();
 
   constructor() {
     // TODO: leer DB si existe
@@ -57,6 +58,26 @@ class Busquedas {
       max: main.temp_max,
       temp: main.temp
     };
+  }
+
+  async agregarHistorial(lugar = '') {
+    // console.log(this.historial);
+    const index = this.historial.indexOf(lugar);
+    if (index > -1) {
+      this.historial.splice(index, 1);
+      // console.log(this.historial);
+    }
+
+    this.historial.unshift(lugar);
+    // console.log(this.historial);
+
+    if (index < 0 && this.historial.length > 5) {
+      this.historial.splice(-1);
+    }
+    // console.log(this.historial);
+
+    // Salvar historial
+    guardarDB(this.historial);
   }
 }
 
