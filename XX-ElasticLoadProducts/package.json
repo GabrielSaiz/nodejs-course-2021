@@ -1,0 +1,24 @@
+{
+  "name": "elasticsearch_loadproducts",
+  "version": "1.0.0",
+  "description": "ElasticSearch Load Product Module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "elastic",
+    "elasticsearch",
+    "products"
+  ],
+  "author": "Gabriel Saiz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GabrielSaiz/nodejs-course-2021/issues"
+  },
+  "homepage": "https://github.com/GabrielSaiz/nodejs-course-2021#readme",
+  "dependencies": {
+    "axios": "^0.24.0"
+  }
+}
