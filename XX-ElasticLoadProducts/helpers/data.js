@@ -7,15 +7,15 @@ const getFiles = () => {
   return files; //.slice(0, 1000);
 };
 
-const getProduct = (fileName) => {
-  if (fileName.startsWith('product_')) {
+const getData = (fileName, type, locale) => {
+  if (fileName.startsWith(type) && fileName.includes(locale)) {
     // console.log(`Load data from ${fileName}`);
     const info = fs.readFileSync(`${path}/${fileName}`, { encoding: 'utf-8' });
     // console.log(info);
-    const product = JSON.parse(info);
-    // console.log(product);
+    const data = JSON.parse(info);
+    // console.log(data);
 
-    return product;
+    return data;
   }
 
   return null;
@@ -23,5 +23,5 @@ const getProduct = (fileName) => {
 
 module.exports = {
   getFiles,
-  getProduct
+  getData
 };

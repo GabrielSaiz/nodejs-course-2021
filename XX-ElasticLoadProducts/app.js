@@ -1,26 +1,38 @@
 const axios = require('axios');
 
-const { getFiles, getProduct } = require('./helpers/products');
+const { getFiles, getProduct, getData } = require('./helpers/data');
 
 console.log('STARTING LOAD PRODUCTS');
+
+const countries = ['de_AT', 'hr_HR'];
 
 const main = async () => {
   const files = await getFiles();
   console.log(files);
-  for (let i in files) {
-    const product = await getProduct(files[i]);
-    if (product != null) {
-      //   console.log(product.code);
-      // await postRegular(product);
-      // await postWithStemmer(product);
-      await postWithOriginal(product);
+  for (let j in countries) {
+    console.log(`Country: ${countries[j]}`);
+    for (let i in files) {
+      const product = await getData(files[i], 'product_', countries[j]);
+      if (product != null) {
+        await postProduct(product, countries[j].toLowerCase());
+      } else {
+        const category = await getData(files[i], 'category_', countries[j]);
+        if (category != null) {
+          await postCategory(category, countries[j].toLowerCase());
+        } else {
+          const keyword = await getData(files[i], 'keyword_', countries[j]);
+          if (keyword != null) {
+            await postKeyword(keyword, countries[j].toLowerCase());
+          }
+        }
+      }
     }
   }
 
-  async function postRegular(product) {
+  async function postProduct(product, locale) {
     try {
       const response = await axios.post(
-        `http://localhost:9200/products-xxxlutz-de_at/_doc/${product.code}`,
+        `http://localhost:9200/products-xxxlutz-${locale}/_doc/${product.code}`,
         product,
         {
           headers: {
@@ -41,11 +53,14 @@ const main = async () => {
     }
   }
 
-  async function postWithStemmer(product) {
+  async function postCategory(category, locale) {
+    console.log(
+      `http://localhost:9200/categories-xxxlutz-${locale}/_doc/${category.category.code}`
+    );
     try {
       const response = await axios.post(
-        `http://localhost:9200/products-xxxlutz-de_at_stemmer/_doc/${product.code}`,
-        product,
+        `http://localhost:9200/categories-xxxlutz-${locale}/_doc/${category.category.code}`,
+        category,
         {
           headers: {
             'Content-Type': 'application/json'
@@ -55,21 +70,21 @@ const main = async () => {
       //   console.log(response);
       if (response.status == 200 || response.status == 201) {
         console.log(
-          `${product.code} :: ${response.data._id} :: ${response.data.result} `
+          `${category.category.code} :: ${response.data._id} :: ${response.data.result} `
         );
       } else {
-        console.log(`${product.code} :: ${response.status}`);
+        console.log(`${category.category.code} :: ${response.status}`);
       }
     } catch (e) {
-      console.log(`${product.code} :: ${e}`);
+      console.log(`${category.category.code} :: ${e}`);
     }
   }
 
-  async function postWithOriginal(product) {
+  async function postKeyword(keyword, locale) {
     try {
       const response = await axios.post(
-        `http://localhost:9200/products-xxxlutz-de_at-original/_doc/${product.code}`,
-        product,
+        `http://localhost:9200/keywords-xxxlutz-${locale}/_doc`,
+        keyword,
         {
           headers: {
             'Content-Type': 'application/json'
@@ -79,13 +94,13 @@ const main = async () => {
       //   console.log(response);
       if (response.status == 200 || response.status == 201) {
         console.log(
-          `${product.code} :: ${response.data._id} :: ${response.data.result} `
+          `${keyword.keyword} :: ${response.data._id} :: ${response.data.result} `
         );
       } else {
-        console.log(`${product.code} :: ${response.status}`);
+        console.log(`${keyword.keyword} :: ${response.status}`);
       }
     } catch (e) {
-      console.log(`${product.code} :: ${e}`);
+      console.log(`${keyword.keyword} :: ${e}`);
     }
   }
 };
