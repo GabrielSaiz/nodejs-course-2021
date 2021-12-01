@@ -54,9 +54,6 @@ const main = async () => {
   }
 
   async function postCategory(category, locale) {
-    console.log(
-      `http://localhost:9200/categories-xxxlutz-${locale}/_doc/${category.category.code}`
-    );
     try {
       const response = await axios.post(
         `http://localhost:9200/categories-xxxlutz-${locale}/_doc/${category.category.code}`,
